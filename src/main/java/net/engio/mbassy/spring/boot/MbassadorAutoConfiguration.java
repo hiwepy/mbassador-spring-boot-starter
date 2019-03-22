@@ -3,6 +3,7 @@ package net.engio.mbassy.spring.boot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -38,9 +39,8 @@ public class MbassadorAutoConfiguration implements ApplicationContextAware {
 	@Bean
 	@ConditionalOnClass({ MBassador.class })
 	@ConditionalOnProperty(prefix = MbassadorProperties.PREFIX, value = "enabled", havingValue = "true")
-	public MBassador<MBassadorEvent> mbassador(
-			MbassadorProperties properties, 
-			IPublicationErrorHandler errorHandler) {
+	public MBassador<MBassadorEvent> mbassador(MbassadorProperties properties,
+			@Autowired(required = false) IPublicationErrorHandler errorHandler) {
 
 		MBassador<MBassadorEvent> mbassador = new MBassador<MBassadorEvent>(errorHandler);
 		if (errorHandler == null) {
@@ -49,7 +49,6 @@ public class MbassadorAutoConfiguration implements ApplicationContextAware {
 			mbassador = new MBassador<MBassadorEvent>(errorHandler);
 		}
 
-		
 		//mbassador.subscribe(listener);
 		
 		/**

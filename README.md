@@ -1,5 +1,4 @@
-
-#spring-boot-starter-mbassador
+#mbassador-spring-boot-starter
 
 
 https://www.codercto.com/a/5054.html
